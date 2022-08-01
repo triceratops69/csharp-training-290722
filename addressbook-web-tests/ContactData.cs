@@ -9,7 +9,7 @@ namespace WebAddressbookTests
     class ContactData
     {
         private string firstName;
-        private string lastName = "Doe";
+        private string lastName = "";
 
         public ContactData(string firstName)
         {

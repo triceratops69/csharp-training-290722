@@ -93,7 +93,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
-        public void OpenHomePage()
+        private void OpenHomePage()
         {
             driver.Navigate().GoToUrl(baseURL);
         }
