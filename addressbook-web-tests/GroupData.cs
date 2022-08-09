@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    class GroupData
+    public class GroupData
     {
-        private string name;
-        private string header = "";
-        private string footer = "";
+        protected string name;
+        protected string header = "";
+        protected string footer = "";
 
         public GroupData(string name)
         {
