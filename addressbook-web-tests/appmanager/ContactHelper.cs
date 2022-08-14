@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using NUnit.Framework;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
     {
+        private bool acceptNextAlert = true;
+
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
         }
@@ -35,7 +39,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int i)
         {
-            SelectContact(i);
+            SelectContact(++i);
             RemoveContact();
             return this;
         }
@@ -80,14 +84,37 @@ namespace WebAddressbookTests
         //Remove contact
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("//td/input[" + index + "]")).Click();
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + index + "]/td/input")).Click();
+            //tr[" + index + "]/td/input
             return this;
         }
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
-            driver.SwitchTo().Alert().Accept();
+            //driver.SwitchTo().Alert().Accept();
+            Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
             return this;
+        }
+        private string CloseAlertAndGetItsText()
+        {
+            try
+            {
+                IAlert alert = driver.SwitchTo().Alert();
+                string alertText = alert.Text;
+                if (acceptNextAlert)
+                {
+                    alert.Accept();
+                }
+                else
+                {
+                    alert.Dismiss();
+                }
+                return alertText;
+            }
+            finally
+            {
+                acceptNextAlert = true;
+            }
         }
     }
 }
