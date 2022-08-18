@@ -11,6 +11,8 @@ namespace WebAddressbookTests
 {
     public class GroupHelper : HelperBase
     {
+        private string groupURL = "/addressbook/group.php";
+
         public GroupHelper(ApplicationManager manager) : base(manager)
         {
         }
@@ -51,12 +53,9 @@ namespace WebAddressbookTests
         }
         public GroupHelper FillGroupForm(GroupData group)
         {
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            Type(By.Name("group_name"), group.Name);
+            Type(By.Name("group_header"), group.Header);
+            Type(By.Name("group_footer"), group.Footer);
             return this;
         }
         public GroupHelper SubmitGroupCreation()
@@ -70,7 +69,6 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("update")).Click();
             return this;
         }
-
         public GroupHelper InitGroupModification()
         {
             driver.FindElement(By.Name("edit")).Click();
@@ -91,6 +89,15 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.LinkText("group page")).Click();
             return this;
+        }
+
+        public bool IsGroupIn()
+        {
+            if (! driver.Url.EndsWith(groupURL))
+            {
+                manager.Navigator.GoToGroupsPage();
+            }
+            return IsElementPresent(By.Name("selected[]"));
         }
     }
 }
