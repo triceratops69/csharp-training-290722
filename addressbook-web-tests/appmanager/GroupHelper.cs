@@ -99,5 +99,13 @@ namespace WebAddressbookTests
             }
             return IsElementPresent(By.Name("selected[]"));
         }
+        public void CreateGroupIfNotExist(string name)
+        {
+            if (! IsGroupIn())
+            {
+                GroupData group = new GroupData(name);
+                Create(group);
+            }
+        }
     }
 }

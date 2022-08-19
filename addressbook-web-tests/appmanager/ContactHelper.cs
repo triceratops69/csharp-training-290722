@@ -14,6 +14,7 @@ namespace WebAddressbookTests
     public class ContactHelper : HelperBase
     {
         private bool acceptNextAlert = true;
+        private string contactURL = "/addressbook/";
 
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
@@ -115,11 +116,19 @@ namespace WebAddressbookTests
         }
         public bool IsContactIn()
         {
-            if (! driver.Url.EndsWith("/addressbook/"))
+            if (! driver.Url.EndsWith(contactURL))
             {
                 manager.Navigator.GoToHomePage();
             }
             return IsElementPresent(By.Name("selected[]"));
+        }
+        public void CreateContactIfNotExist(string name)
+        {
+            if (! IsContactIn())
+            {
+                ContactData contact = new ContactData(name);
+                Create(contact);
+            }
         }
     }
 }
