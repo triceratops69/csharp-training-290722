@@ -107,5 +107,23 @@ namespace WebAddressbookTests
                 Create(group);
             }
         }
+        public List<GroupData> GetGroupList()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            if (IsGroupIn())
+            {
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+                Console.WriteLine("Get groups: ");
+                foreach (IWebElement element in elements)
+                {
+                    groups.Add(new GroupData(element.Text));
+                    Console.Write(element.Text + "; ");
+                }
+            } else
+            {
+                Console.WriteLine("No groups");
+            }
+            return groups;
+        }
     }
 }
