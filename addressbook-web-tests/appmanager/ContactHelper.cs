@@ -40,7 +40,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int i)
         {
-            SelectContact(++i);
+            SelectContact(i);
             RemoveContact();
             return this;
         }
@@ -82,8 +82,7 @@ namespace WebAddressbookTests
         //Remove contact
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + index + "]/td/input")).Click();
-            //tr[" + index + "]/td/input
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index+2) + "]/td/input")).Click();
             return this;
         }
         public ContactHelper RemoveContact()
@@ -91,8 +90,10 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             //driver.SwitchTo().Alert().Accept();
             Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            manager.Navigator.GoToHomePage();
             return this;
         }
+
         private string CloseAlertAndGetItsText()
         {
             try
@@ -114,6 +115,7 @@ namespace WebAddressbookTests
                 acceptNextAlert = true;
             }
         }
+
         public bool IsContactIn()
         {
             if (! driver.Url.EndsWith(contactURL))
@@ -129,6 +131,43 @@ namespace WebAddressbookTests
                 ContactData contact = new ContactData(name);
                 Create(contact);
             }
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            manager.Navigator.GoToHomePage();
+
+            List<ContactData> contacts = new List<ContactData>();
+
+            int i = 0;
+            int contactCount = driver.FindElements(By.Name("entry")).Count;
+            //Console.WriteLine("contactCount = " + contactCount);
+
+            ICollection<IWebElement> elementsLastName = driver.FindElements(By.CssSelector("td:nth-child(2)"));
+            ICollection<IWebElement> elementsFirstname = driver.FindElements(By.CssSelector("td:nth-child(3)"));
+
+            string[] LastNameMas = new string[contactCount];
+            string[] FirstNameMas = new string[contactCount];
+
+            foreach (IWebElement element in elementsLastName)
+            {
+                LastNameMas[i] = element.Text;
+                i++;  
+            }
+            i = 0;
+            foreach (IWebElement element in elementsFirstname)
+            {
+                FirstNameMas[i] = element.Text;
+                i++;
+            }
+
+            for (i = 0; i < contactCount; i++)
+            {
+                contacts.Add(new ContactData(FirstNameMas[i], LastNameMas[i]));
+                //Console.WriteLine(LastNameMas[i] + " " + FirstNameMas[i]);
+            }
+
+            return contacts;
         }
     }
 }

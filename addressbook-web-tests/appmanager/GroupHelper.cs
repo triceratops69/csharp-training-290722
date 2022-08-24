@@ -77,7 +77,7 @@ namespace WebAddressbookTests
         //Remove group
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + index + "]/input")).Click();
+            driver.FindElement(By.XPath("//div[@id='content']/form/span[" + (index+1) + "]/input")).Click();
             return this;
         }
         public GroupHelper RemoveGroup()
@@ -113,11 +113,9 @@ namespace WebAddressbookTests
             if (IsGroupIn())
             {
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
-                Console.WriteLine("Get groups: ");
                 foreach (IWebElement element in elements)
                 {
                     groups.Add(new GroupData(element.Text));
-                    Console.Write(element.Text + "; ");
                 }
             } else
             {
