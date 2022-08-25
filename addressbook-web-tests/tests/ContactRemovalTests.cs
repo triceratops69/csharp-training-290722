@@ -16,7 +16,7 @@ namespace WebAddressbookTests
             app.Contacts.CreateContactIfNotExist("deleteme");
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
-
+            
             app.Contacts.Remove(0);
 
             System.Threading.Thread.Sleep(500);

@@ -30,12 +30,12 @@ namespace WebAddressbookTests
             // prepare
             app.Auth.Logout();
 
-            System.Threading.Thread.Sleep(100);
             // action
             AccountData account = new AccountData("admin", "123456");
             app.Auth.Login(account);
 
             // verification
+            System.Threading.Thread.Sleep(500);
             Assert.IsFalse(app.Auth.IsloggedIn(account));
         }
     }

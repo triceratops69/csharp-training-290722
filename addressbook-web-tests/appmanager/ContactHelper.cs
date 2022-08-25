@@ -139,32 +139,14 @@ namespace WebAddressbookTests
 
             List<ContactData> contacts = new List<ContactData>();
 
-            int i = 0;
             int contactCount = driver.FindElements(By.Name("entry")).Count;
-            //Console.WriteLine("contactCount = " + contactCount);
 
             ICollection<IWebElement> elementsLastName = driver.FindElements(By.CssSelector("td:nth-child(2)"));
             ICollection<IWebElement> elementsFirstname = driver.FindElements(By.CssSelector("td:nth-child(3)"));
 
-            string[] LastNameMas = new string[contactCount];
-            string[] FirstNameMas = new string[contactCount];
-
-            foreach (IWebElement element in elementsLastName)
+            for (int i = 0; i < contactCount; i++)
             {
-                LastNameMas[i] = element.Text;
-                i++;  
-            }
-            i = 0;
-            foreach (IWebElement element in elementsFirstname)
-            {
-                FirstNameMas[i] = element.Text;
-                i++;
-            }
-
-            for (i = 0; i < contactCount; i++)
-            {
-                contacts.Add(new ContactData(FirstNameMas[i], LastNameMas[i]));
-                //Console.WriteLine(LastNameMas[i] + " " + FirstNameMas[i]);
+                contacts.Add(new ContactData(elementsFirstname.ElementAt(i).Text, elementsLastName.ElementAt(i).Text));
             }
 
             return contacts;
