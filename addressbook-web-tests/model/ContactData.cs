@@ -51,7 +51,15 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return LastName.CompareTo(other.LastName) + FirstName.CompareTo(other.FirstName);
+
+            if (LastName.CompareTo(other.LastName) == 0)
+            {
+                return FirstName.CompareTo(other.FirstName);
+            }
+            else
+            {
+                return LastName.CompareTo(other.LastName);
+            }
         }
     }
 }
