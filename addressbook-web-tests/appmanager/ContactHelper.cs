@@ -161,6 +161,9 @@ namespace WebAddressbookTests
             Type(By.Name("firstname"), contact.FirstName);
             Type(By.Name("lastname"), contact.LastName);
             Type(By.Name("middlename"), contact.MiddleName);
+            Type(By.Name("nickname"), contact.NickName);
+            Type(By.Name("address"), contact.Address);
+            Type(By.Name("home"), contact.HomePhone);
             return this;
         }
         public ContactHelper SubmitContactCreation()
