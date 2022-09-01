@@ -128,7 +128,15 @@ namespace WebAddressbookTests
             string ageout = "";
             if (byear != "" && byear != null)
             {
-                string dateString = (bday + bmounth + byear).Trim();
+                string dateString;
+                if (bmounth == "")
+                {
+                    dateString = ("1 " + byear).Trim();
+                }
+                else
+                {
+                    dateString = (bday + bmounth + byear).Trim();
+                }
                 var dateTime = DateTime.Parse(dateString);
 
                 int age = DateTime.Now.Year - dateTime.Year;
