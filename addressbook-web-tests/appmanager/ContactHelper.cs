@@ -15,6 +15,15 @@ namespace WebAddressbookTests
     {
         private bool acceptNextAlert = true;
 
+        public int GetNumberOfResults()
+        {
+            manager.Navigator.GoToHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            //return Int32.Parse(m.Value);
+            return Int32.Parse(driver.FindElement(By.Id("search_count")).Text);
+        }
+
         public ContactData GetContactInformationFromTable(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -34,31 +43,78 @@ namespace WebAddressbookTests
 
         }
 
+        internal ContactData GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
+
+            string allDetails = driver.FindElement(By.Id("content")).Text;
+
+            bool image = false;
+            if (driver.FindElement(By.Id("content")).FindElements(By.TagName("img")).Count > 0)
+            {
+                image = true;
+            }
+
+            return new ContactData()
+            {
+                AllDetails = allDetails,
+                Image = image
+            };
+        }
+
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
             InitContactModification(index);
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string middleName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+
+            string nickName = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
 
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string faxPhone = driver.FindElement(By.Name("fax")).GetAttribute("value");
 
             string email = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+
+            string bday = driver.FindElement(By.Name("bday")).FindElement(By.TagName("option")).Text;
+            string bmonth = driver.FindElement(By.Name("bmonth")).FindElement(By.TagName("option")).Text;
+            string byear = driver.FindElement(By.Name("byear")).GetAttribute("value");
+
+            string aday = driver.FindElement(By.Name("aday")).FindElement(By.TagName("option")).Text;
+            string amonth = driver.FindElement(By.Name("amonth")).FindElement(By.TagName("option")).Text;
+            string ayear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
 
             return new ContactData(firstName, lastName)
             {
+                MiddleName = middleName,
+                NickName = nickName,
+                Title = title,
+                Company = company,
                 Address = address, 
                 HomePhone = homePhone, 
                 MobilePhone = mobilePhone, 
                 WorkPhone = workPhone, 
+                FaxPhone = faxPhone,
                 Email = email,
                 Email2 = email2,
-                Email3 = email3
+                Email3 = email3,
+                HomePage = homepage,
+                Bday = bday,
+                Bmonth = bmonth,
+                Byear = byear,
+                Aday = aday,
+                Amonth = amonth,
+                Ayear = ayear
             };
         }
 
