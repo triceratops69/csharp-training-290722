@@ -27,8 +27,11 @@ namespace WebAddressbookTests
         [Test]
         public void TestContactDetailsInfo()
         {
-            ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
-            ContactData fromDetails = app.Contacts.GetContactInformationFromDetails(0);
+            
+            for (int i = 0; i < app.Contacts.GetNumberOfResults(); i++)
+            {
+            ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(i);
+            ContactData fromDetails = app.Contacts.GetContactInformationFromDetails(i);
 
             fromForm.Image = fromDetails.Image;
 
@@ -38,7 +41,7 @@ namespace WebAddressbookTests
 
             // verification
             Assert.AreEqual(fromForm.AllDetails, fromDetails.AllDetails);
-
+            }
         }
 
     }

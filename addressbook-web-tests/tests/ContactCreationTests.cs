@@ -14,15 +14,26 @@ namespace WebAddressbookTests
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
             List<ContactData> contacts = new List<ContactData>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 contacts.Add(new ContactData(GenerateRandomString(10), GenerateRandomString(10))
                 {
                     MiddleName = GenerateRandomString(10),
                     NickName = GenerateRandomString(20),
-                    Address = GenerateRandomString(30),
-                    HomePhone = GenerateRandomString(40)
-
+                    Title = GenerateRandomString(20),
+                    Company = GenerateRandomString(20),
+                    Address = GenerateRandomString(20),
+                    HomePhone = GenerateRandomString(20),
+                    MobilePhone = GenerateRandomString(20),
+                    WorkPhone = GenerateRandomString(20),
+                    FaxPhone = GenerateRandomString(20),
+                    Email = GenerateRandomString(20),
+                    Email2 = GenerateRandomString(20),
+                    Email3 = GenerateRandomString(20),
+                    HomePage = GenerateRandomString(20),
+                    Address2 = GenerateRandomString(20),
+                    Phone2 = GenerateRandomString(20),
+                    Notes = GenerateRandomString(20)
                 });
             }
             return contacts;

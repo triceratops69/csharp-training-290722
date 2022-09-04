@@ -94,6 +94,10 @@ namespace WebAddressbookTests
             string amonth = driver.FindElement(By.Name("amonth")).FindElement(By.TagName("option")).Text;
             string ayear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
 
+            string address2 = driver.FindElement(By.Name("address2")).Text;
+            string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            string notes = driver.FindElement(By.Name("notes")).Text;
+
             return new ContactData(firstName, lastName)
             {
                 MiddleName = middleName,
@@ -114,7 +118,10 @@ namespace WebAddressbookTests
                 Byear = byear,
                 Aday = aday,
                 Amonth = amonth,
-                Ayear = ayear
+                Ayear = ayear,
+                Address2 = address2,
+                Phone2 = phone2,
+                Notes = notes
             };
         }
 
@@ -162,8 +169,21 @@ namespace WebAddressbookTests
             Type(By.Name("lastname"), contact.LastName);
             Type(By.Name("middlename"), contact.MiddleName);
             Type(By.Name("nickname"), contact.NickName);
+            Type(By.Name("title"), contact.Title);
+            Type(By.Name("company"), contact.Company);
             Type(By.Name("address"), contact.Address);
             Type(By.Name("home"), contact.HomePhone);
+            Type(By.Name("mobile"), contact.MobilePhone);
+            Type(By.Name("work"), contact.WorkPhone);
+            Type(By.Name("fax"), contact.FaxPhone);
+            Type(By.Name("email"), contact.Email);
+            Type(By.Name("email2"), contact.Email2);
+            Type(By.Name("email3"), contact.Email3);
+            Type(By.Name("homepage"), contact.HomePage);
+            Type(By.Name("address2"), contact.Address2);
+            Type(By.Name("phone2"), contact.Phone2);
+            Type(By.Name("notes"), contact.Notes);
+
             return this;
         }
         public ContactHelper SubmitContactCreation()
