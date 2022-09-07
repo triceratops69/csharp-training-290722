@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace WebAddressbookTests
@@ -68,7 +69,13 @@ namespace WebAddressbookTests
                 .Deserialize(new StreamReader(path + @"contacts.xml"));
         }
 
-        [Test, TestCaseSource("ContactDataFromXmlFile")]
+        public static IEnumerable<ContactData> ContactDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactData>>(
+                File.ReadAllText(path + @"contacts.json"));
+        }
+
+        [Test, TestCaseSource("ContactDataFromJsonFile")]
         public void ContactCreationTest(ContactData contact)
         {
 

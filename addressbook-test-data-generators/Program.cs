@@ -61,7 +61,17 @@ namespace addressbook_test_data_generators
                         MiddleName = TestBase.GenerateRandomString(10),
                         NickName = TestBase.GenerateRandomString(10),
                         Title = TestBase.GenerateRandomString(10),
-                        HomePhone = TestBase.GenerateRandomString(10)
+                        HomePhone = TestBase.GenerateRandomString(10),
+                        MobilePhone = TestBase.GenerateRandomString(10),
+                        WorkPhone = TestBase.GenerateRandomString(10),
+                        FaxPhone = TestBase.GenerateRandomString(10),
+                        Email = TestBase.GenerateRandomString(10),
+                        Email2 = TestBase.GenerateRandomString(10),
+                        Email3 = TestBase.GenerateRandomString(10),
+                        HomePage = TestBase.GenerateRandomString(10),
+                        Address2 = TestBase.GenerateRandomString(10),
+                        Phone2 = TestBase.GenerateRandomString(10),
+                        Notes = TestBase.GenerateRandomString(10)
                     });
                 }
 
@@ -111,13 +121,24 @@ namespace addressbook_test_data_generators
         {
             foreach (ContactData contact in contacts)
             {
-                writer.WriteLine(String.Format("${0},{1},{2},{3},{4}",
+                writer.WriteLine(String.Format("${0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",
                     contact.FirstName,
                     contact.LastName,
                     contact.MiddleName,
                     contact.NickName,
                     contact.Title,
-                    contact.HomePhone));
+                    contact.HomePhone,
+                    contact.MobilePhone,
+                    contact.WorkPhone,
+                    contact.FaxPhone,
+                    contact.Email,
+                    contact.Email2,
+                    contact.Email3,
+                    contact.HomePage,
+                    contact.Address2,
+                    contact.Phone2,
+                    contact.Notes
+                    ));
             }
         }
         private static void writeContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
