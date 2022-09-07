@@ -1,9 +1,12 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 using NUnit.Framework;
 
 namespace WebAddressbookTests
@@ -11,6 +14,8 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactCreationTests : AuthTestBase
     {
+        public static string path = @"C:\Users\trice\source\repos\triceratops69\csharp-training-290722\addressbook-web-tests\";
+
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
             List<ContactData> contacts = new List<ContactData>();
@@ -38,8 +43,32 @@ namespace WebAddressbookTests
             }
             return contacts;
         }
+        public static IEnumerable<ContactData> ContactDataFromCsvFile()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            string[] lines = File.ReadAllLines(path + @"contacts.csv");
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                contacts.Add(new ContactData(parts[0])
+                {
+                    LastName = parts[1],
+                    MiddleName = parts[2],
+                    NickName = parts[3],
+                    Title = parts[4]
+                });
+            }
+            return contacts;
+        }
+        public static IEnumerable<ContactData> ContactDataFromXmlFile()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            return (List<ContactData>)
+                new XmlSerializer(typeof(List<ContactData>))
+                .Deserialize(new StreamReader(path + @"contacts.xml"));
+        }
 
-        [Test, TestCaseSource("RandomContactDataProvider")]
+        [Test, TestCaseSource("ContactDataFromXmlFile")]
         public void ContactCreationTest(ContactData contact)
         {
 
