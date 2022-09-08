@@ -46,7 +46,7 @@ namespace WebAddressbookTests
         public static IEnumerable<ContactData> ContactDataFromCsvFile()
         {
             List<ContactData> contacts = new List<ContactData>();
-            string[] lines = File.ReadAllLines(@"contacts.csv"));
+            string[] lines = File.ReadAllLines(@"contacts.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split(',');
