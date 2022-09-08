@@ -15,8 +15,7 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactCreationTests : AuthTestBase
     {
-        public static string path = @"C:\Users\trice\source\repos\triceratops69\csharp-training-290722\addressbook-web-tests\";
-
+        public static string path = Directory.GetCurrentDirectory();
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
             List<ContactData> contacts = new List<ContactData>();
@@ -47,7 +46,7 @@ namespace WebAddressbookTests
         public static IEnumerable<ContactData> ContactDataFromCsvFile()
         {
             List<ContactData> contacts = new List<ContactData>();
-            string[] lines = File.ReadAllLines(path + @"contacts.csv");
+            string[] lines = File.ReadAllLines(@"contacts.csv"));
             foreach (string l in lines)
             {
                 string[] parts = l.Split(',');
@@ -66,13 +65,13 @@ namespace WebAddressbookTests
             List<ContactData> contacts = new List<ContactData>();
             return (List<ContactData>)
                 new XmlSerializer(typeof(List<ContactData>))
-                .Deserialize(new StreamReader(path + @"contacts.xml"));
+                .Deserialize(new StreamReader(@"contacts.xml"));
         }
 
         public static IEnumerable<ContactData> ContactDataFromJsonFile()
         {
             return JsonConvert.DeserializeObject<List<ContactData>>(
-                File.ReadAllText(path + @"contacts.json"));
+                File.ReadAllText(@"contacts.json"));
         }
 
         [Test, TestCaseSource("ContactDataFromJsonFile")]

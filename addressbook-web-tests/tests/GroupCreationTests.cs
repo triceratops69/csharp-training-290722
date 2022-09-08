@@ -14,7 +14,7 @@ namespace WebAddressbookTests
     [TestFixture]
     public class GroupCreationTests : AuthTestBase
     {
-        public static string path = @"C:\Users\trice\source\repos\triceratops69\csharp-training-290722\addressbook-web-tests\";
+        public static string path = Directory.GetCurrentDirectory();
 
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -34,7 +34,7 @@ namespace WebAddressbookTests
         public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
-            string[] lines = File.ReadAllLines(path + @"groups.csv");
+            string[] lines = File.ReadAllLines(@"groups.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split(',');
@@ -52,13 +52,13 @@ namespace WebAddressbookTests
             List<GroupData> groups = new List<GroupData>();
             return (List<GroupData>)
                 new XmlSerializer(typeof(List<GroupData>))
-                .Deserialize(new StreamReader(path + @"groups.xml"));
+                .Deserialize(new StreamReader(@"groups.xml"));
         }
 
         public static IEnumerable<GroupData> GroupDataFromJsonFile()
         {
             return JsonConvert.DeserializeObject<List<GroupData>>(
-                File.ReadAllText(path + @"groups.json"));
+                File.ReadAllText(@"groups.json"));
         }
 
         [Test, TestCaseSource("GroupDataFromJsonFile")]
