@@ -126,9 +126,12 @@
     <Compile Include="model\AddressBookDB.cs" />
     <Compile Include="model\ContactData.cs" />
     <Compile Include="appmanager\ContactHelper.cs" />
+    <Compile Include="model\GroupContactRelation.cs" />
     <Compile Include="model\GroupData.cs" />
     <Compile Include="appmanager\GroupHelper.cs" />
     <Compile Include="appmanager\AuthTestBase.cs" />
+    <Compile Include="tests\RemoveContactFromGroup.cs" />
+    <Compile Include="tests\AddingContactToGroupTests.cs" />
     <Compile Include="tests\ContactInformationTests.cs" />
     <Compile Include="tests\ContactModificationTests.cs" />
     <Compile Include="tests\ContactRemovalTests.cs" />
