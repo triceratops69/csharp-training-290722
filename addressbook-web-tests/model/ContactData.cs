@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LinqToDB.Mapping;
 
 namespace WebAddressbookTests
 {
+    [Table (Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
@@ -22,15 +24,33 @@ namespace WebAddressbookTests
             FirstName = firstName;
             LastName = lastName;
         }
+
+        [Column(Name = "firstname")]
         public string FirstName { get; set; }
+
+        [Column(Name = "lastname")]
         public string LastName { get; set; }
+
+        [Column(Name = "middlename")]
         public string MiddleName { get; set; }
+
+        [Column(Name = "nickname")]
         public string NickName { get; set; }
+
         public bool Image { get; set; }
+
+        [Column(Name = "title")]
         public string Title { get; set; }
+
+        [Column(Name = "company")]
         public string Company { get; set; }
+
+        [Column(Name = "id"), PrimaryKey, Identity]
         public string Id { get; set; }
+
+        [Column(Name = "address")]
         public string Address { get; set; }
+
         public string AllPhones 
         { 
             get
@@ -54,6 +74,7 @@ namespace WebAddressbookTests
         public string MobilePhone { get; set; }
         public string WorkPhone { get; set; }
         public string FaxPhone { get; set; }
+
         public string AllEmails
         { 
             get
@@ -86,6 +107,13 @@ namespace WebAddressbookTests
         public string Phone2 { get; set; }
         public string Notes { get; set; }
 
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts select c).ToList();
+            }
+        }
 
         public string AllDetails
         {

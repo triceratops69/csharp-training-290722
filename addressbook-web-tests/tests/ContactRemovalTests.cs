@@ -8,25 +8,24 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactRemovalTests : AuthTestBase
+    public class ContactRemovalTests : ContactTestBase
     {
         [Test]
         public void ContactRemovalTest()
         {
             app.Contacts.CreateContactIfNotExist("deleteme");
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
-            
-            app.Contacts.Remove(0);
+            List<ContactData> oldContacts = ContactData.GetAll();//app.Contacts.GetContactList();
+            ContactData toBeRemoved = oldContacts[0];
+
+            app.Contacts.Remove(toBeRemoved);
             System.Threading.Thread.Sleep(1000);
             int count = app.Contacts.GetContactCount();
             Assert.AreEqual(oldContacts.Count - 1, count);
 
             System.Threading.Thread.Sleep(500);
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
-
-            ContactData toBeRemoved = oldContacts[0];
+            List<ContactData> newContacts = ContactData.GetAll();//app.Contacts.GetContactList();
 
             oldContacts.RemoveAt(0);
 
