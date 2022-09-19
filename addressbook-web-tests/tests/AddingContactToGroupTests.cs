@@ -38,8 +38,12 @@ namespace WebAddressbookTests
                     System.Console.Out.WriteLine("Contact " + System.String.Format("{0} {1}", contact.FirstName, contact.LastName).Trim() + " added to group " + group.Name);
                     return;
                 }
+                if (i == GroupData.GetAll().Count-1)
+                {
+                    app.Contacts.Create(new ContactData(ContactData.GetAll().Last().FirstName + "1"));
+                    i=-1;
+                }
             }
-            System.Console.Out.WriteLine("All contacts have group");
         }
 
         [Test]

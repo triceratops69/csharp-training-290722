@@ -38,8 +38,12 @@ namespace WebAddressbookTests
                     Assert.AreEqual(oldList, newList);
                     return;
                 }
+                if (i == GroupData.GetAll().Count - 1)
+                {
+                    app.Contacts.AddContactToGroup(ContactData.GetAll().First(), GroupData.GetAll().First());
+                    i = -1;
+                }
             }
-            System.Console.Out.WriteLine("No contacts for remove");
         }
 
         [Test]
